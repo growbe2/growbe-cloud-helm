@@ -26,6 +26,8 @@ spec:
         - containerPort: 9001
           protocol: TCP
       dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: ghcr
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
 status: {}
