@@ -16,7 +16,7 @@ jobs:
         uses: Azure/setup-helm@v1
       - name: login to acr using helm
         run: |
-          echo ${{ secrets.GITHUB_TOKEN }} | helm registry login ${{ env.GCR_IMAGE }} --username ${{ github.repository_owner }} --password-stdin
+          echo ${{ secrets.PAT }} | helm registry login ${{ env.GCR_IMAGE }} --username ${{ github.repository_owner }} --password-stdin
         env:
           GCR_IMAGE: ghcr.io/growbe2/public-cloud
       - name: package chart
