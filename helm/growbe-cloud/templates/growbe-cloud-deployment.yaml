@@ -35,9 +35,9 @@ spec:
         - name: NMS_API_URL
           value: http://nms:8000
         - name: NMS_API_USERNAME
-          value: {{ .Values.cloud.nms.auth.username}}
+          value: {{ .Values.cloud.nms.auth.username | squote}}
         - name: NMS_TOKEN
-          value: {{ .Values.cloud.nms.auth.password}}
+          value: {{ .Values.cloud.nms.auth.password | squote}}
         - name: PORT
           value: "3000"
         - name: SSO_URL

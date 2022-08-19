@@ -25,11 +25,11 @@ spec:
         - name: MQTT_URL
           value: mqtt://broker:1883
         - name: NMS_API_PASSWORD
-          value: {{ .Values.cloud.nms.auth.password}}
+          value: {{ .Values.cloud.nms.auth.password | squote}}
         - name: NMS_API_USERNAME
-          value: {{ .Values.cloud.nms.auth.username}}
+          value: {{ .Values.cloud.nms.auth.username | squote}}
         - name: NMS_TOKEN
-          value: {{ .Values.cloud.nms.auth.password}}
+          value: {{ .Values.cloud.nms.auth.password | squote }}
         image: ghcr.io/growbe2/growbe-cloud/nms:latest
         imagePullPolicy: Always
         name: nms
