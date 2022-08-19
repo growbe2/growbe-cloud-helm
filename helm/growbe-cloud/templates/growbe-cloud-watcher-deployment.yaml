@@ -34,7 +34,8 @@ spec:
         - name: TZ
           value: "America/Toronto"
         envFrom:
-          - secretRef: growbe-cloud-watcher
+        - secretRef:
+            name: growbe-cloud-watcher
         image: ghcr.io/growbe2/growbe-cloud/growbe-cloud:{{ .Values.cloud.version }}
         imagePullPolicy: Always
         name: growbe-cloud-watcher
