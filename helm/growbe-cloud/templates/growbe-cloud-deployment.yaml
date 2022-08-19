@@ -47,9 +47,9 @@ spec:
         - name: TZ
           value: "America/Toronto"
         - name: GITHUB_TOKEN_RO
-          value: {{ .Values.cloud.confgenerator.gh_pat }}
+          value: {{ .Values.cloud.confgenerator.gh_pat | squote}}
         - name: REVERSE_PROXY_ID_RSA
-          value: {{ .Values.cloud.confgenerator.id_rsa }}
+          value: {{ .Values.cloud.confgenerator.id_rsa | squote}}
         image: ghcr.io/growbe2/growbe-cloud/growbe-cloud:{{ .Values.cloud.version }}
         imagePullPolicy: Always
         name: growbe-cloud
