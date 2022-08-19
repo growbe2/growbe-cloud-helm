@@ -26,9 +26,9 @@ spec:
         - name: MONGO_INITDB_DATABASE
           value: growbe
         - name: MONGO_INITDB_ROOT_PASSWORD
-          value: test
+          value: {{ .Values.cloud.pgsql.mongo.password }}
         - name: MONGO_INITDB_ROOT_USERNAME
-          value: doadmin
+          value: {{ .Values.cloud.pgsql.mongo.username }}
         image: mongo
         imagePullPolicy: Always
         name: mongo

@@ -30,21 +30,21 @@ spec:
         - start
         env:
         - name: DB_URL
-          value: postgres://test:test@pgsql:5432/defaultdb
+          value: postgres://{{ .Values.cloud.pgsql.auth.username }}:{{ .Values.cloud.pgsql.auth.password }}@pgsql:5432/defaultdb
         - name: EMAIL_FROM
-          value: '"Growbe Cloud" <robot@growbe.ca>'
+          value: {{ .Values.cloud.sso.email.from }} 
         - name: EMAIL_PASSWORD
-          value: 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
+          value: {{ .Values.cloud.sso.email.auth.password }}
         - name: EMAIL_REDIRECT
-          value: https://cloud.dev.growbe.ca
+          value: {{ .Values.cloud.sso.email.redirect }}
         - name: EMAIL_USER
-          value: apikey
+          value: {{ .Values.cloud.sso.email.auth.username }}
         - name: JWT_SECRET
-          value: 2342tf
+          value: {{ .Values.cloud.sso.secret.jwt }}
         - name: JWT_TTL
           value: "9600"
         - name: OTP_SECRET
-          value: "12445431"
+          value: {{ .Values.cloud.sso.secret.otp }}
         - name: PORT
           value: "3001"
         - name: TZ
@@ -53,8 +53,7 @@ spec:
         - name: SMS_SID
         - name: SMS_TOKEN
         - name: SSO_SETTINGS
-          value: '{"publicCreation":true,"multiFactor":false,"accountValidation":true,
-            "defaultRoles": []}'
+          value: {{ .Values.cloud.sso.settings }}
         image: ghcr.io/growbe2/growbe-cloud/sso:latest
         imagePullPolicy: Always
         name: sso

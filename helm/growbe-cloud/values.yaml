@@ -15,6 +15,39 @@ cloud:
     certSecret: tls-growbedev
   # Use for the mqtt service that run as a NodeService
   externalIP: 192.168.2.1
+
   broker:
     port: 1883
     portws: 9001
+
+  confgenerator:
+    gh_pat: xxxxxx
+    id_rsa: xxxxxx
+
+  nms:
+    enabled: true
+    auth:
+      username: testadmin
+      password: 123345678
+
+  mongo:
+    auth:
+      username: doadmin
+      password: test
+
+  pgsql:
+    auth:
+      username: test
+      password: test
+
+  sso:
+    email:
+      auth:
+        username: apikey
+        password: xxxxxx
+      from: '"Growbe Cloud" <robot@growbe.ca>'
+      redirect: https://cloud.dev.growbe.ca
+    settings: '{"publicCreation":true,"multiFactor":false,"accountValidation":true, "defaultRoles": []}'
+    secret:
+      otp: 123456
+      jwt: 2342tf

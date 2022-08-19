@@ -24,9 +24,9 @@ spec:
         - dist/growbe-watcher.js
         env:
         - name: DB_URL
-          value: postgres://test:test@pgsql:5432/defaultdb
+          value: postgres://{{ .Values.cloud.pgsql.auth.username }}:{{ .Values.cloud.pgsql.auth.password }}@pgsql:5432/defaultdb
         - name: MONGO_URL
-          value: mongodb://doadmin:test@mongo:27018/growbe?authSource=admin
+          value: mongodb://{{ .Values.cloud.mongo.auth.username }}:{{ .Values.cloud.mongo.auth.password }}@mongo:27018/growbe?authSource=admin
         - name: MQTT_URL
           value: mqtt://broker:{{ .Values.cloud.broker.port }}
         - name: PORT

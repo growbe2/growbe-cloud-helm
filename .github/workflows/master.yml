@@ -24,6 +24,6 @@ jobs:
           helm package ./helm/growbe-cloud
       - name: publish chart to acr
         run: |
-          helm push $(ls growbe-cloud-chart-*) oci://ghcr.io/growbe2/ 
+          helm push $(ls growbe-cloud-chart-*) oci://ghcr.io/growbe2/
         env:
           GCR_IMAGE: ghcr.io/growbe2/public-cloud

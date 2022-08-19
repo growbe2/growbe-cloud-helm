@@ -25,9 +25,9 @@ spec:
         - dist/growbe-cloud.js
         env:
         - name: DB_URL
-          value: postgres://test:test@pgsql:5432/defaultdb
+          value: postgres://{{ .Values.cloud.pgsql.auth.username }}:{{ .Values.cloud.pgsql.auth.password }}@pgsql:5432/defaultdb
         - name: MONGO_URL
-          value: mongodb://doadmin:test@mongo:27018/growbe?authSource=admin
+          value: mongodb://{{ .Values.cloud.mongo.auth.username }}:{{ .Values.cloud.mongo.auth.password }}@mongo:27018/growbe?authSource=admin
         - name: MQTT_URL
           value: mqtt://broker:{{ .Values.cloud.broker.port }}
         - name: NMS_API_PASSWORD
@@ -35,9 +35,9 @@ spec:
         - name: NMS_API_URL
           value: http://nms:8000
         - name: NMS_API_USERNAME
-          value: testadmin
+          value: {{ .Values.cloud.nms.auth.username}}
         - name: NMS_TOKEN
-          value: "12345678"
+          value: {{ .Values.cloud.nms.auth.password}}
         - name: PORT
           value: "3000"
         - name: SSO_URL
@@ -47,9 +47,9 @@ spec:
         - name: TZ
           value: "America/Toronto"
         - name: GITHUB_TOKEN_RO
-          value: "" 
+          value: {{ .Values.cloud.confgenerator.gh_pat }}
         - name: REVERSE_PROXY_ID_RSA
-          value: ""
+          value: {{ .Values.cloud.confgenerator.id_rsa }}
         image: ghcr.io/growbe2/growbe-cloud/growbe-cloud:{{ .Values.cloud.version }}
         imagePullPolicy: Always
         name: growbe-cloud
