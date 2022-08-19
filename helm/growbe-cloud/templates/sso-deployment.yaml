@@ -31,20 +31,10 @@ spec:
         env:
         - name: EMAIL_FROM
           value: {{ .Values.cloud.sso.email.from | squote }} 
-        - name: EMAIL_PASSWORD
-          value: {{ .Values.cloud.sso.email.auth.password }}
         - name: EMAIL_REDIRECT
           value: {{ .Values.cloud.sso.email.redirect }}
-        - name: EMAIL_USER
-          value: {{ .Values.cloud.sso.email.auth.username }}
-        - name: JWT_SECRET
-          value: {{ .Values.cloud.sso.secret.jwt | squote }}
         - name: JWT_TTL
           value: "9600"
-        - name: OTP_SECRET
-          value: {{ .Values.cloud.sso.secret.otp | squote }}
-        - name: DB_URL
-          value: postgres://{{ .Values.cloud.pgsql.auth.username }}:{{ .Values.cloud.pgsql.auth.password }}@pgsql:5432/defaultdb
         - name: PORT
           value: "3001"
         - name: TZ
@@ -54,6 +44,9 @@ spec:
         - name: SMS_TOKEN
         - name: SSO_SETTINGS
           value: {{ .Values.cloud.sso.settings | squote}}
+        envFrom:
+        - secretRef:
+            name: sso
         image: ghcr.io/growbe2/growbe-cloud/sso:latest
         imagePullPolicy: Always
         name: sso

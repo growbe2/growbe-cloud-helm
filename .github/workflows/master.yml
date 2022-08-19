@@ -21,9 +21,10 @@ jobs:
           GCR_IMAGE: ghcr.io/growbe2/public-cloud
       - name: package chart
         run: |
-          helm package ./helm/growbe-cloud
+          helm package ./helm/growbe-cloud && helm package ./helm/growbe-cloud-secrets
       - name: publish chart to acr
         run: |
           helm push $(ls growbe-cloud-chart-*) oci://ghcr.io/growbe2/
+          helm push $(ls growbe-cloud-secret*) oci://ghcr.io/growbe2/
         env:
           GCR_IMAGE: ghcr.io/growbe2/public-cloud

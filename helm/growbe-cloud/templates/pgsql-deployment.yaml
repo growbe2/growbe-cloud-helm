@@ -23,10 +23,9 @@ spec:
           value: defaultdb
         - name: POSTGRES_HOST_AUTH_METHOD
           value: md5
-        - name: POSTGRES_PASSWORD
-          value: {{ .Values.cloud.pgsql.auth.username }}
-        - name: POSTGRES_USER
-          value: {{ .Values.cloud.pgsql.auth.password }}
+        envFrom:
+        - secretRef:
+            name: pgsql 
         image: postgres
         imagePullPolicy: Always
         name: pgsql

@@ -25,10 +25,9 @@ spec:
         env:
         - name: MONGO_INITDB_DATABASE
           value: growbe
-        - name: MONGO_INITDB_ROOT_PASSWORD
-          value: {{ .Values.cloud.mongo.auth.password }}
-        - name: MONGO_INITDB_ROOT_USERNAME
-          value: {{ .Values.cloud.mongo.auth.username }}
+        envFrom:
+        - secretRef:
+            name: mongo
         image: mongo
         imagePullPolicy: Always
         name: mongo

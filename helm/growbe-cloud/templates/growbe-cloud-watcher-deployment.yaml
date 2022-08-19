@@ -23,10 +23,6 @@ spec:
         - node
         - dist/growbe-watcher.js
         env:
-        - name: DB_URL
-          value: postgres://{{ .Values.cloud.pgsql.auth.username }}:{{ .Values.cloud.pgsql.auth.password }}@pgsql:5432/defaultdb
-        - name: MONGO_URL
-          value: mongodb://{{ .Values.cloud.mongo.auth.username }}:{{ .Values.cloud.mongo.auth.password }}@mongo:27018/growbe?authSource=admin
         - name: MQTT_URL
           value: mqtt://broker:{{ .Values.cloud.broker.port }}
         - name: PORT
@@ -37,6 +33,8 @@ spec:
           value: 'growbe:*'
         - name: TZ
           value: "America/Toronto"
+        envFrom:
+          - secretRef: growbe-cloud-watcher
         image: ghcr.io/growbe2/growbe-cloud/growbe-cloud:{{ .Values.cloud.version }}
         imagePullPolicy: Always
         name: growbe-cloud-watcher

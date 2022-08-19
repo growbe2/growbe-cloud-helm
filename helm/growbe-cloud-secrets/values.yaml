@@ -1,0 +1,27 @@
+cloud:
+  confgenerator:
+    gh_pat: xxxxxx
+    id_rsa: xxxxxx
+
+  nms:
+    auth:
+      username: testadmin
+      password: 123345678
+
+  mongo:
+    auth:
+      username: doadmin
+      password: test
+
+  pgsql:
+    auth:
+      username: test
+      password: test
+  sso:
+    email:
+      auth:
+        username: apikey
+        password: xxxxxx
+    secret:
+      otp: 123456
+      jwt: 2342tf
