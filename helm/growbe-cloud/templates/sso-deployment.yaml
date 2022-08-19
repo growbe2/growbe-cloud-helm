@@ -53,7 +53,7 @@ spec:
         - name: SMS_SID
         - name: SMS_TOKEN
         - name: SSO_SETTINGS
-          value: {{ .Values.cloud.sso.settings }}
+          value: {{ .Values.cloud.sso.settings | squote}}
         image: ghcr.io/growbe2/growbe-cloud/sso:latest
         imagePullPolicy: Always
         name: sso
