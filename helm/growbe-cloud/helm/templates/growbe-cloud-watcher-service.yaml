@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    io.kompose.service: growbe-cloud-watcher
+  name: growbe-cloud-watcher
+spec:
+  ports:
+  - name: "3005"
+    port: 3005
+    targetPort: http
+  selector:
+    io.kompose.service: growbe-cloud-watcher
+status:
+  loadBalancer: {}

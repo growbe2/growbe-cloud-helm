@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.16.0 (0c01309)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: sso
+  name: sso
+spec:
+  selector:
+    matchLabels:
+      io.kompose.service: sso
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: sso
+    spec:
+      containers:
+      - args:
+        - npm
+        - run
+        - start
+        env:
+        - name: DB_URL
+          value: postgres://test:test@pgsql:5432/defaultdb
+        - name: EMAIL_FROM
+          value: '"Growbe Cloud" <robot@growbe.ca>'
+        - name: EMAIL_PASSWORD
+          value: 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
+        - name: EMAIL_REDIRECT
+          value: https://cloud.dev.growbe.ca
+        - name: EMAIL_USER
+          value: apikey
+        - name: JWT_SECRET
+          value: 2342tf
+        - name: JWT_TTL
+          value: "9600"
+        - name: OTP_SECRET
+          value: "12445431"
+        - name: PORT
+          value: "3001"
+        - name: TZ
+          value: "America/Toronto"
+        - name: SMS_NUMBER
+        - name: SMS_SID
+        - name: SMS_TOKEN
+        - name: SSO_SETTINGS
+          value: '{"publicCreation":true,"multiFactor":false,"accountValidation":true,
+            "defaultRoles": []}'
+        image: ghcr.io/growbe2/growbe-cloud/sso:latest
+        imagePullPolicy: Always
+        name: sso
+        ports:
+        - containerPort: 3001
+          protocol: TCP
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: ghcr
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status: {}

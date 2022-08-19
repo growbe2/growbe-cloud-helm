@@ -1,0 +1,58 @@
+# TODO optional component
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: nms
+  name: nms
+spec:
+  progressDeadlineSeconds: 2147483647
+  replicas: 1
+  revisionHistoryLimit: 2147483647
+  selector:
+    matchLabels:
+      io.kompose.service: nms
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: nms
+    spec:
+      containers:
+      - env:
+        - name: MQTT_URL
+          value: mqtt://broker:1883
+        - name: NMS_API_PASSWORD
+          value: "12345678"
+        - name: NMS_API_USERNAME
+          value: testadmin
+        - name: NMS_TOKEN
+          value: "12345678"
+        image: ghcr.io/growbe2/growbe-cloud/nms:latest
+        imagePullPolicy: Always
+        name: nms
+        ports:
+        - containerPort: 1935
+          protocol: TCP
+        - containerPort: 8000
+          protocol: TCP
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /home/node/app/media
+          name: video
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: ghrc
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - name: video
+        persistentVolumeClaim:
+          claimName: video
+status: {}

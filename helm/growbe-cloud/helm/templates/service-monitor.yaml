@@ -1,0 +1,43 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: growbe-cloud-service-monitor
+  labels:
+    prometheus-monitor: "true"
+spec:
+  selector:
+    matchLabels:
+      io.kompose.service: growbe-cloud
+  namespaceSelector:
+    matchNames:
+      - growbe-dev
+  endpoints:
+    - targetPort: http
+      scheme: http
+      path: '/metrics'
+      interval: 10s
+      honorLabels: true
+  namespaceSelector:
+    any: true
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: growbe-cloud-watcher-service-monitor
+  labels:
+    prometheus-monitor: "true"
+spec:
+  selector:
+    matchLabels:
+      io.kompose.service: growbe-cloud-watcher
+  namespaceSelector:
+    matchNames:
+      - growbe-dev
+  endpoints:
+    - targetPort: http
+      scheme: http
+      path: '/metrics'
+      interval: 10s
+      honorLabels: true
+  namespaceSelector:
+    any: true

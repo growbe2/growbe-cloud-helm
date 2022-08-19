@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    io.kompose.service: growbe-cloud
+  name: growbe-cloud
+spec:
+  ports:
+  - name: "3000"
+    port: 3000
+    targetPort: http
+  selector:
+    io.kompose.service: growbe-cloud
+status:
+  loadBalancer: {}

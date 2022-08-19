@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    io.kompose.service: nms
+  name: nms
+spec:
+  externalIPs:
+  - {{ .Values.cloud.externalIP }}
+  ports:
+  - name: "1935"
+    port: 1935
+    targetPort: 1935
+  - name: "8000"
+    port: 8000
+    targetPort: 8000
+  selector:
+    io.kompose.service: nms
+status:
+  loadBalancer: {}

@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: broker
+  name: broker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: broker
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        io.kompose.service: broker
+    spec:
+      containers:
+      - image: ghcr.io/growbe2/growbe-cloud/broker:latest
+        imagePullPolicy: Always
+        name: broker
+        ports:
+        - containerPort: 1883
+          protocol: TCP
+        - containerPort: 9001
+          protocol: TCP
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+status: {}

@@ -1,0 +1,20 @@
+# Default values for helm.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+
+cloud:
+  # Version of the growbe-cloud application to deploy
+  version: 1.0.0
+  # Name of the environment you are deploying
+  env: dev
+  # Base domain name for the site , all component will be routed to subdomain
+  basePath: growbe.ca
+  http:
+    # This secret need to be manually created to be able to create certificate
+    certSecret: tls-growbedev
+  # Use for the mqtt service that run as a NodeService
+  externalIP: 192.168.2.1
+  broker:
+    port: 1883
+    portws: 9001

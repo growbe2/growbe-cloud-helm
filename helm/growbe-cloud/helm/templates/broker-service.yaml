@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    io.kompose.service: broker
+  name: broker
+spec:
+  externalIPs:
+  - {{ .Values.cloud.externalIP }}
+  ports:
+  - name: {{ .Values.cloud.broker.port | quote }}
+    port: {{ .Values.cloud.broker.port }}
+    targetPort: 1883
+  - name: {{ .Values.cloud.broker.portws | quote }}
+    port: {{ .Values.cloud.broker.portws }}
+    targetPort: 9001
+  selector:
+    io.kompose.service: broker
+status:
+  loadBalancer: {}

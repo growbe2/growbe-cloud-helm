@@ -1,0 +1,76 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: http-ingress
+  annotations:
+    cert-manager.io/issuer: issuer-do
+    nginx.org/websocket-services: "broker"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/proxy-body-size: 50M
+spec:
+  tls:
+  - hosts:
+    - auth.{{ .Values.cloud.basePath }}
+    - cloud.{{ .Values.cloud.basePath }}
+    - api.{{ .Values.cloud.basePath }}
+    - broker.{{ .Values.cloud.basePath }}
+    - stream.{{ .Values.cloud.basePath }}
+    secretName: {{ .Values.cloud.http.certSecret }}
+  rules:
+  - host: auth.{{ .Values.cloud.basePath }}
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: sso
+            port:
+              number: 3001
+  - host: stream.{{ .Values.cloud.basePath}}
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: nms
+            port:
+              number: 8000
+  - host: cloud.{{ .Values.cloud.basePath }}
+    http:
+      paths:
+      - path: /assets/config
+        pathType: Prefix
+        backend:
+          service:
+            name: conf-server
+            port:
+              number: 80
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: frontend-dev
+            port:
+              number: 80
+  - host: api.{{ .Values.cloud.basePath }}
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: growbe-cloud
+            port:
+              number: 3000
+  - host: broker.{{ .Values.cloud.basePath }}
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: broker
+            port:
+              number: {{ .Values.cloud.broker.portws }}

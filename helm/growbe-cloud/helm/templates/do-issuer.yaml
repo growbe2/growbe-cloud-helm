@@ -1,0 +1,17 @@
+# TODO split from this , this is configure individualiy
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: issuer-do
+spec:
+  acme:
+    email: sys.growbe@gmail.com
+    server: https://acme-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      name: issuer-do-account-key
+    solvers:
+    - dns01:
+        digitalocean:
+          tokenSecretRef:
+            name: digitalocean-dns
+            key: access-token

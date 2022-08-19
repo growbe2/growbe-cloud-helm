@@ -1,0 +1,31 @@
+on:
+  push:
+    branches:
+      - master
+
+
+name: Release chart
+
+jobs:
+  proxy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: install helm
+        uses: Azure/setup-helm@v1
+      - name: login to acr using helm
+        run: |
+          echo ${{ secrets.GITHUB_TOKEN }} | helm registry login ${{ env.GCR_IMAGE }} --username ${{ github.repository_owner }} --password-stdin
+        env:
+          GCR_IMAGE: ghcr.io/growbe2/public-cloud
+      - name: save helm chart to local registry
+        run: |
+          helm chart save ${{ github.workspace }}/helm/growbe-cloud ${{ env.GCR_IMAGE }}:${{ github.sha }}
+        env:
+          GCR_IMAGE: ghcr.io/growbe2/public-cloud
+      - name: publish chart to acr
+        run: |
+          helm chart push ${{ env.GCR_IMAGE }}:${{ github.sha }}
+        env:
+          GCR_IMAGE: ghcr.io/growbe2/public-cloud

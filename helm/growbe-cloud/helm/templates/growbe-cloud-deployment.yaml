@@ -1,0 +1,83 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: growbe-cloud
+  name: growbe-cloud
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: growbe-cloud
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        io.kompose.service: growbe-cloud
+    spec:
+      containers:
+      - args:
+        - node
+        - dist/growbe-cloud.js
+        env:
+        - name: DB_URL
+          value: postgres://test:test@pgsql:5432/defaultdb
+        - name: MONGO_URL
+          value: mongodb://doadmin:test@mongo:27018/growbe?authSource=admin
+        - name: MQTT_URL
+          value: mqtt://broker:{{ .Values.cloud.broker.port }}
+        - name: NMS_API_PASSWORD
+          value: "12345678"
+        - name: NMS_API_URL
+          value: http://nms:8000
+        - name: NMS_API_USERNAME
+          value: testadmin
+        - name: NMS_TOKEN
+          value: "12345678"
+        - name: PORT
+          value: "3000"
+        - name: SSO_URL
+          value: http://sso:3001
+        - name: DEBUG
+          value: growbe:*
+        - name: TZ
+          value: "America/Toronto"
+        - name: GITHUB_TOKEN_RO
+          value: "" 
+        - name: REVERSE_PROXY_ID_RSA
+          value: ""
+        image: ghcr.io/growbe2/growbe-cloud/growbe-cloud:{{ .Values.cloud.version }}
+        imagePullPolicy: Always
+        name: growbe-cloud
+        ports:
+        - name: http
+          containerPort: 3000
+          protocol: TCP
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        livenessProbe:
+          httpGet:
+            path: /live
+            port: http
+          failureThreshold: 1
+          initialDelaySeconds: 5
+          periodSeconds: 3
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: http
+          failureThreshold: 1
+          initialDelaySeconds: 5
+          periodSeconds: 3
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: ghrc
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+status: {}
