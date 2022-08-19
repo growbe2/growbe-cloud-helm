@@ -38,11 +38,11 @@ spec:
         - name: EMAIL_USER
           value: {{ .Values.cloud.sso.email.auth.username }}
         - name: JWT_SECRET
-          value: {{ .Values.cloud.sso.secret.jwt }}
+          value: {{ .Values.cloud.sso.secret.jwt | squote }}
         - name: JWT_TTL
           value: "9600"
         - name: OTP_SECRET
-          value: {{ .Values.cloud.sso.secret.otp }}
+          value: {{ .Values.cloud.sso.secret.otp | squote }}
         - name: DB_URL
           value: postgres://{{ .Values.cloud.pgsql.auth.username }}:{{ .Values.cloud.pgsql.auth.password }}@pgsql:5432/defaultdb
         - name: PORT
