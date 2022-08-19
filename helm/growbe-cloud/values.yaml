@@ -34,12 +34,10 @@ cloud:
     auth:
       username: doadmin
       password: test
-
   pgsql:
     auth:
       username: test
       password: test
-
   sso:
     email:
       auth:
