@@ -47,8 +47,6 @@ spec:
           containerPort: 3000
           protocol: TCP
         resources: {}
-        terminationMessagePath: /dev/termination-log
-        terminationMessagePolicy: File
         livenessProbe:
           httpGet:
             path: /live

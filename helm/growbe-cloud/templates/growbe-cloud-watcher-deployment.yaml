@@ -44,8 +44,6 @@ spec:
           containerPort: 3005
           protocol: TCP
         resources: {}
-        terminationMessagePath: /dev/termination-log
-        terminationMessagePolicy: File
         livenessProbe:
           httpGet:
             path: /live
