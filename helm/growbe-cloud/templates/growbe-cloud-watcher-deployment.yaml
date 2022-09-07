@@ -37,7 +37,6 @@ spec:
         - secretRef:
             name: growbe-cloud-watcher
         image: ghcr.io/growbe2/growbe-cloud/growbe-cloud:{{ .Values.cloud.version }}
-        imagePullPolicy: Always
         name: growbe-cloud-watcher
         ports:
         - name: http
