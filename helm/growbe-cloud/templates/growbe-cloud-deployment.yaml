@@ -46,20 +46,20 @@ spec:
           containerPort: 3000
           protocol: TCP
         resources: {}
-        livenessProbe:
-          httpGet:
-            path: /live
-            port: http
-          failureThreshold: 1
-          initialDelaySeconds: 5
-          periodSeconds: 3
-        readinessProbe:
-          httpGet:
-            path: /ready
-            port: http
-          failureThreshold: 1
-          initialDelaySeconds: 5
-          periodSeconds: 3
+        #livenessProbe:
+        #  httpGet:
+        #    path: /live
+        #    port: http
+        #  failureThreshold: 1
+        #  initialDelaySeconds: 5
+        #  periodSeconds: 3
+        #readinessProbe:
+        #  httpGet:
+        #    path: /ready
+        #    port: http
+        #  failureThreshold: 1
+        #  initialDelaySeconds: 5
+        #  periodSeconds: 3
       dnsPolicy: ClusterFirst
       imagePullSecrets:
       - name: ghrc
