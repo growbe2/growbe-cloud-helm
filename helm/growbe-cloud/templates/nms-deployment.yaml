@@ -23,7 +23,7 @@ spec:
       containers:
       - env:
         - name: MQTT_URL
-          value: mqtt://broker:1883
+          value: mqtt://broker:{{ .Values.cloud.broker.port }}
         envFrom:
         - secretRef:
             name: nms
