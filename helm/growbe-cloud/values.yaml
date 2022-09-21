@@ -22,6 +22,7 @@ cloud:
 
   nms:
     enabled: true
+    port: 1935
 
   sso:
     email:

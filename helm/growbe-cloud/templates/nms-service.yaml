@@ -8,8 +8,8 @@ spec:
   externalIPs:
   - {{ .Values.cloud.externalIP }}
   ports:
-  - name: "1935"
-    port: 1935
+  - name: "{{ .Values.cloud.nms.port | default 1935 }}"
+    port: {{ .Values.cloud.nms.port | default 1935 }}
     targetPort: 1935
   - name: "8000"
     port: 8000

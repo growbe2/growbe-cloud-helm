@@ -1,4 +1,4 @@
-# TODO optional component
+{{ if eq .Values.cloud.nms.enabled true }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -24,6 +24,8 @@ spec:
       - env:
         - name: MQTT_URL
           value: mqtt://broker:{{ .Values.cloud.broker.port }}
+        - name: TZ
+          value: "America/Toronto"
         envFrom:
         - secretRef:
             name: nms
@@ -53,3 +55,4 @@ spec:
         persistentVolumeClaim:
           claimName: video
 status: {}
+{{end}}
