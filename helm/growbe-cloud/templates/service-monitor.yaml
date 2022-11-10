@@ -1,3 +1,4 @@
+{{- if eq .Values.cloud.prometheus.enable true }}
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
@@ -41,3 +42,4 @@ spec:
       honorLabels: true
   namespaceSelector:
     any: true
+{{ end }}
