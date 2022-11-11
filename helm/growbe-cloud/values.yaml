@@ -30,4 +30,4 @@ cloud:
       redirect: https://cloud.dev.growbe.ca
     settings: '{"publicCreation":true,"multiFactor":false,"accountValidation":true, "defaultRoles": []}'
   prometheus:
-    enable: true
+    enable: false

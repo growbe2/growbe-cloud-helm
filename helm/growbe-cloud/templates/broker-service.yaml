@@ -1,3 +1,4 @@
+# TODO : need to support the tcp ingress with the service instead of the node port
 apiVersion: v1
 kind: Service
 metadata:
@@ -5,8 +6,6 @@ metadata:
     io.kompose.service: broker
   name: broker
 spec:
-  externalIPs:
-  - {{ .Values.cloud.externalIP }}
   ports:
   - name: {{ .Values.cloud.broker.port | quote }}
     port: {{ .Values.cloud.broker.port }}
@@ -14,6 +13,25 @@ spec:
   - name: {{ .Values.cloud.broker.portws | quote }}
     port: {{ .Values.cloud.broker.portws }}
     targetPort: 9001
+  selector:
+    io.kompose.service: broker
+status:
+  loadBalancer: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    io.kompose.service: broker-node
+  name: broker-node
+spec:
+  type: NodePort
+  ports:
+  - name: {{ .Values.cloud.broker.port | quote }}
+    port: {{ .Values.cloud.broker.port }}
+    targetPort: 1883
+    nodePort: 30045
+    protocol: TCP
   selector:
     io.kompose.service: broker
 status:
