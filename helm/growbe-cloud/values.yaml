@@ -17,8 +17,8 @@ cloud:
   externalIP: 192.168.2.1
 
   broker:
-    port: 1883
-    portws: 9001
+    # must use a NodePort
+    port: 30045
 
   nms:
     enabled: true

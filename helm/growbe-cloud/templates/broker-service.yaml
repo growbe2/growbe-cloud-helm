@@ -7,11 +7,11 @@ metadata:
   name: broker
 spec:
   ports:
-  - name: {{ .Values.cloud.broker.port | quote }}
-    port: {{ .Values.cloud.broker.port }}
+  - name: '1883'
+    port: 1883
     targetPort: 1883
-  - name: {{ .Values.cloud.broker.portws | quote }}
-    port: {{ .Values.cloud.broker.portws }}
+  - name: '9001'
+    port: 9001
     targetPort: 9001
   selector:
     io.kompose.service: broker
@@ -27,10 +27,10 @@ metadata:
 spec:
   type: NodePort
   ports:
-  - name: {{ .Values.cloud.broker.port | quote }}
-    port: {{ .Values.cloud.broker.port }}
+  - name: '1883'
+    port: 1883
     targetPort: 1883
-    nodePort: 30045
+    nodePort: {{ .Values.cloud.broker.port }}
     protocol: TCP
   selector:
     io.kompose.service: broker
