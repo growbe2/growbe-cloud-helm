@@ -28,3 +28,12 @@ jobs:
           helm push $(ls growbe-cloud-secret*) oci://ghcr.io/growbe2/
         env:
           GCR_IMAGE: ghcr.io/growbe2/public-cloud
+      - name: Release archive to latest
+        uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
+          prerelease: true
+          title: "Latest tarball of the charts"
+          files: |
+            ./growbe-cloud-*
