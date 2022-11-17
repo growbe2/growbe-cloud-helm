@@ -20,14 +20,7 @@ jobs:
         env:
           GCR_IMAGE: ghcr.io/growbe2/public-cloud
       - name: package chart
-        run: |
-          helm package ./helm/growbe-cloud && helm package ./helm/growbe-cloud-secrets
-      - name: publish chart to acr
-        run: |
-          helm push $(ls growbe-cloud-chart-*) oci://ghcr.io/growbe2/
-          helm push $(ls growbe-cloud-secret*) oci://ghcr.io/growbe2/
-        env:
-          GCR_IMAGE: ghcr.io/growbe2/public-cloud
+        run: ./bundle_repo.sh
       - name: Release archive to latest
         uses: "marvinpinto/action-automatic-releases@latest"
         with:
@@ -36,4 +29,4 @@ jobs:
           prerelease: true
           title: "Latest tarball of the charts"
           files: |
-            ./growbe-cloud-*
+            ./output/*
