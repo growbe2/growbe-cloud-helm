@@ -25,7 +25,7 @@ spec:
         - dist/growbe-cloud.js
         env:
         - name: MQTT_URL
-          value: mqtt://broker:{{ .Values.cloud.broker.port }}
+          value: mqtt://broker:1883
         - name: NMS_API_URL
           value: http://nms:8000
         - name: PORT

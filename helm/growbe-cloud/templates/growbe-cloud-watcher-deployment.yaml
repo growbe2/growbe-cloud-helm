@@ -24,7 +24,7 @@ spec:
         - dist/growbe-watcher.js
         env:
         - name: MQTT_URL
-          value: mqtt://broker:{{ .Values.cloud.broker.port }}
+          value: mqtt://broker:1883
         - name: PORT
           value: "3005"
         - name: SSO_URL
