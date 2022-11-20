@@ -6,6 +6,11 @@ metadata:
     io.kompose.service: nms
   name: nms
 spec:
+  {{- with .Values.deployment.affinity }}
+  affinity:
+    {{- toYaml . | nindent 8 }}
+  {{- end }}
+
   progressDeadlineSeconds: 2147483647
   replicas: 1
   revisionHistoryLimit: 2147483647

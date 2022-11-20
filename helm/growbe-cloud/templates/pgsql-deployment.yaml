@@ -5,6 +5,11 @@ metadata:
     io.kompose.service: pgsql
   name: pgsql
 spec:
+  {{- with .Values.deployment.affinity }}
+  affinity:
+    {{- toYaml . | nindent 8 }}
+  {{- end }}
+
   replicas: 1
   selector:
     matchLabels:

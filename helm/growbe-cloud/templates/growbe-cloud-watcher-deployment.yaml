@@ -5,6 +5,10 @@ metadata:
     io.kompose.service: growbe-cloud-watcher
   name: growbe-cloud-watcher
 spec:
+  {{- with .Values.deployment.affinity }}
+  affinity:
+    {{- toYaml . | nindent 8 }}
+  {{- end }}
   selector:
     matchLabels:
       io.kompose.service: growbe-cloud-watcher

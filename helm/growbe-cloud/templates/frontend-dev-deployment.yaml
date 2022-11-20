@@ -6,6 +6,11 @@ metadata:
     io.kompose.service: frontend-dev
   name: frontend-dev
 spec:
+  {{- with .Values.deployment.affinity }}
+  affinity:
+    {{- toYaml . | nindent 8 }}
+  {{- end }}
+
   replicas: 1
   selector:
     matchLabels:
