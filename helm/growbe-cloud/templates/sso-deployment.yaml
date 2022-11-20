@@ -9,11 +9,6 @@ metadata:
     io.kompose.service: sso
   name: sso
 spec:
-  {{- with .Values.deployment.affinity }}
-  affinity:
-    {{- toYaml . | nindent 8 }}
-  {{- end }}
-
   selector:
     matchLabels:
       io.kompose.service: sso
@@ -28,6 +23,11 @@ spec:
       labels:
         io.kompose.service: sso
     spec:
+      {{- with .Values.deployment.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+
       containers:
       - args:
         - npm

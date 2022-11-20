@@ -6,10 +6,6 @@ metadata:
   name: conf-server
 spec:
   replicas: 1
-  {{- with .Values.deployment.affinity }}
-  affinity:
-    {{- toYaml . | nindent 8 }}
-  {{- end }}
   selector:
     matchLabels:
       io.kompose.service: conf-server
@@ -24,6 +20,11 @@ spec:
       labels:
         io.kompose.service: conf-server
     spec:
+      {{- with .Values.deployment.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+
       containers:
       - image: ghcr.io/growbe2/growbe-cloud/config-{{ .Values.cloud.env }}:latest
         imagePullPolicy: Always

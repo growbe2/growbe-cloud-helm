@@ -6,11 +6,6 @@ metadata:
     io.kompose.service: frontend-dev
   name: frontend-dev
 spec:
-  {{- with .Values.deployment.affinity }}
-  affinity:
-    {{- toYaml . | nindent 8 }}
-  {{- end }}
-
   replicas: 1
   selector:
     matchLabels:
@@ -26,6 +21,11 @@ spec:
       labels:
         io.kompose.service: frontend-dev
     spec:
+      {{- with .Values.deployment.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+
       containers:
       - image: ghcr.io/growbe2/growbe-cloud/growbe-portal:{{ .Values.cloud.version }}
         imagePullPolicy: Always
