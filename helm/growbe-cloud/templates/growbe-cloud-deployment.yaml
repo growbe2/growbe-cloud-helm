@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
+    growbe: service
     io.kompose.service: growbe-cloud
   name: growbe-cloud
 spec:
@@ -17,13 +18,13 @@ spec:
   template:
     metadata:
       labels:
+        growbe: service
         io.kompose.service: growbe-cloud
     spec:
       {{- with .Values.deployment.affinity }}
       affinity:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-
       containers:
       - args:
         - node
@@ -51,20 +52,20 @@ spec:
           containerPort: 3000
           protocol: TCP
         resources: {}
-        #livenessProbe:
-        #  httpGet:
-        #    path: /live
-        #    port: http
-        #  failureThreshold: 1
-        #  initialDelaySeconds: 5
-        #  periodSeconds: 3
-        #readinessProbe:
-        #  httpGet:
-        #    path: /ready
-        #    port: http
-        #  failureThreshold: 1
-        #  initialDelaySeconds: 5
-        #  periodSeconds: 3
+        livenessProbe:
+          httpGet:
+            path: /live
+            port: http
+          failureThreshold: 1
+          initialDelaySeconds: 5
+          periodSeconds: 3
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: http
+          failureThreshold: 1
+          initialDelaySeconds: 5
+          periodSeconds: 3
       dnsPolicy: ClusterFirst
       imagePullSecrets:
       - name: ghrc
