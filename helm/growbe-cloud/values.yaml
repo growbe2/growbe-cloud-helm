@@ -26,6 +26,7 @@ cloud:
 
   backup:
     enable: false
+    schedule: '0 0 * * *'
 
   nms:
     enabled: true
