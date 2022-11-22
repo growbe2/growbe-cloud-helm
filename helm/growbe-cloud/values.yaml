@@ -20,6 +20,13 @@ cloud:
     # must use a NodePort
     port: 30045
 
+  # only support by the db backer for now
+  storage:
+    class: nfs-csi
+
+  backup:
+    enable: false
+
   nms:
     enabled: true
     port: 1935
