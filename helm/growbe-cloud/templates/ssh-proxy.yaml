@@ -46,6 +46,8 @@ spec:
           value: '/publickey'
         - name: USER_NAME
           value: pi
+        - name: DOCKER_MODS
+          value: linuxserver/mods:openssh-server-ssh-tunnel
       volumes:
       - name: ssh-proxy-pkeys-pvc
         persistentVolumeClaim:
