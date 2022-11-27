@@ -1,4 +1,3 @@
-{{ if eq .Values.cloud.sshproxy.enabled true }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -72,4 +71,3 @@ spec:
     io.kompose.service: ssh-proxy
 status:
   loadBalancer: {}
-{{end}}
