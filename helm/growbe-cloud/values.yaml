@@ -16,6 +16,11 @@ cloud:
   # Use for the mqtt service that run as a NodeService
   externalIP: 192.168.2.1
 
+
+  sshproxy:
+    enabled: false
+    port: 30050
+
   broker:
     # must use a NodePort
     port: 30045

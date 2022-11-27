@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: growbe-cloud-pvc
+spec:
+  storageClassName: nfs-csi
+  accessModes: [ReadWriteOnce]
+  resources:
+    requests:
+      storage: 5Gi
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: growbe-cloud-pvc
+spec:
+  schedule: '0 0 * * *'
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: growbe-cloud-backup
+            image: ghcr.io/growbe2/growbe-cloud/backup:1.0.0
+            imagePullPolicy: IfNotPresent
+            volumeMounts:
+            - mountPath: /backups/
+              name: growbe-cloud-pvc
+            envFrom:
+            - secretRef:
+                name: growbe-cloud
+          restartPolicy: OnFailure
+          volumes:
+          - name: growbe-cloud-pvc
+            persistentVolumeClaim:
+              claimName: growbe-cloud-pvc
