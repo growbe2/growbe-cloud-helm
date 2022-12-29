@@ -34,6 +34,8 @@ spec:
           value: mqtt://broker:1883
         - name: NMS_API_URL
           value: http://nms:8000
+        - name: REVERSE_PROXY_URL
+          value: http://growbe-cloud-proxy-cmd:3008
         - name: PORT
           value: "3000"
         - name: SSO_URL
