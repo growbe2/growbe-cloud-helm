@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    growbe: service
+    io.kompose.service: growbe-cloud-proxy-cmd
+  name: growbe-cloud-proxy-cmd
+spec:
+  selector:
+    matchLabels:
+      io.kompose.service: growbe-cloud-proxy-cmd
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        growbe: service
+        io.kompose.service: growbe-cloud-proxy-cmd
+    spec:
+      {{- with .Values.deployment.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+
+      containers:
+      - args:
+        - node
+        - dist/reverse_proxy_ws.js
+        image: ghcr.io/growbe2/growbe-cloud/growbe-cloud:{{ .Values.cloud.version }}
+        name: growbe-cloud-proxy-cmd
+        ports:
+        - name: http
+          containerPort: 3008
+          protocol: TCP
+        resources: {}
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: ghrc
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+status: {}
