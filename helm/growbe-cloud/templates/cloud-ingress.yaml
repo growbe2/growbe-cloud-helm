@@ -4,7 +4,7 @@ metadata:
   name: http-ingress
   annotations:
     cert-manager.io/issuer: issuer-do
-    nginx.org/websocket-services: "broker"
+    nginx.org/websocket-services: "broker,growbe-cloud-proxy-cmd"
     nginx.ingress.kubernetes.io/rewrite-target: /
     nginx.ingress.kubernetes.io/proxy-body-size: 50M
 spec:
@@ -16,6 +16,7 @@ spec:
     - broker.{{ .Values.cloud.basePath }}
     - stream.{{ .Values.cloud.basePath }}
     - watcher.{{ .Values.cloud.basePath }}
+    - proxy.{{ .Values.cloud.basePath }}
     secretName: {{ .Values.cloud.http.certSecret }}
   rules:
   - host: auth.{{ .Values.cloud.basePath }}
@@ -85,3 +86,13 @@ spec:
             name: broker
             port:
               number: {{ .Values.cloud.broker.portws }}
+  - host: proxy.{{ .Values.cloud.basePath }}
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: growbe-cloud-proxy-cmd
+            port:
+              number: 3008
