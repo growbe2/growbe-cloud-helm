@@ -52,7 +52,7 @@ spec:
         envFrom:
         - secretRef:
             name: sso
-        image: ghcr.io/growbe2/growbe-cloud/sso:latest
+        image: ghcr.io/berlingoqc/sso/sso:latest
         imagePullPolicy: Always
         name: sso
         ports:
