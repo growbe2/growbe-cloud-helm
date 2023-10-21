@@ -3,7 +3,6 @@ kind: PersistentVolumeClaim
 metadata:
   name: ssh-proxy-pkeys-pvc
 spec:
-  storageClassName: {{ .Values.cloud.storage.class }}
   accessModes: [ReadWriteOnce]
   resources:
     requests:
